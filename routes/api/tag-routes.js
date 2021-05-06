@@ -29,7 +29,14 @@ router.get('/:id', (req, res) => {
 });
  // create a new tag
 router.post('/', (req, res) => {
- 
+  try {
+    const ProductData = await Tag.create({
+      reader_id: req.body.reader_id,
+    });
+    res.status(200).json(ProductData);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
 // update a tag's name by its `id` value
 router.put('/:id', (req, res) => {
