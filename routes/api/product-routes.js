@@ -8,7 +8,9 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
   // be sure to include its associated Category and Tag data
 router.get('/', (req, res) => {
   try {
-    const productData = await Product.findAll();
+    const productData = await Product.findAll({
+      include: [{ model: Category, through: Tag, as: 'Products_Tag' }],
+    });
     res.status(200).json(productData);
   } catch (err) {
     res.status(500).json(err);
@@ -79,7 +81,7 @@ router.post('/', (req, res) => {
       console.log(err);
       res.status(400).json(err);
     });
-});
+
 
 // update product
 router.put('/:id', (req, res) => {
