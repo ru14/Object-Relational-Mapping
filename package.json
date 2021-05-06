@@ -1,0 +1,30 @@
+{
+  "name": "Object-Relational-Mapping",
+  "version": "1.0.0",
+  "description": "we have build the back end for an e-commerce site by modifying starter code. we have configure a working Express.js API to use Sequelize to interact with a MySQL database.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js",
+    "seed": "node seeds/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ru14/Object-Relational-Mapping.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ru14/Object-Relational-Mapping/issues"
+  },
+  "homepage": "https://github.com/ru14/Object-Relational-Mapping#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "nodemon": "^2.0.7",
+    "sequelize": "^6.6.2"
+  }
+}
