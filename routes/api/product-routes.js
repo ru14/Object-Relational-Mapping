@@ -5,11 +5,14 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // get all products
 // find all products
-  // be sure to include its associated Category and Tag data
-router.get('/', (req, res) => {
+// be sure to include its associated Category and Tag data
+router.get('/', async (req, res) => {
   try {
     const productData = await Product.findAll({
-      include:[Category, Tag]
+      include: [Category, {
+        model: Tag,
+        through: ProductTag
+      }]
     })
     res.status(200).json(productData);
   } catch (err) {
@@ -19,14 +22,17 @@ router.get('/', (req, res) => {
 
 // get one product
 // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
-router.get('/:id', (req, res) => {
+// be sure to include its associated Category and Tag data
+router.get('/:id', async (req, res) => {
   try {
     const productData = await Product.findOne({
-      where:{
+      where: {
         id: req.params.id,
       },
-      include: [Category, Tag]
+      include: [Category, {
+        model: Tag,
+        through: ProductTag
+      }]
     })
 
     if (!productData) {
@@ -52,16 +58,17 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   Product.create([
     {
-    product_name: "Basketball",
-    price: 200.00,
-    stock: 3,
-    tagIds: [1, 2, 3, 4]
-  }
-]).then(() => {
-  res.send('Created Success!');
-});
-});
-  
+      product_name: "Basketball",
+      price: 200.00,
+      stock: 3,
+      tagIds: [1, 2, 3, 4]
+    }
+
+  ]).then(() => {
+    res.send('Created Success!');
+  });
+
+
   Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
@@ -76,14 +83,14 @@ router.post('/', (req, res) => {
       }
       // if no product tags, just respond
       res.status(200).json(product);
-      console.log({product,req,body,productTagIdArr})
+      console.log({ product, req, body, productTagIdArr })
     })
     .then((productTagIds) => res.status(200).json(productTagIds))
     .catch((err) => {
       console.log(err);
       res.status(400).json(err);
     });
-
+});
 
 // update product
 router.put('/:id', (req, res) => {
@@ -127,7 +134,7 @@ router.put('/:id', (req, res) => {
     });
 });
 // delete one product by its `id` value
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const productData = await Product.destroy({
       where: {
