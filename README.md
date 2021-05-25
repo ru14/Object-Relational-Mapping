@@ -1,3 +1,6 @@
+
+
+
 # Object-Relational-Mapping(ORM): E-Commerce Back End
 we have build the back end for an e-commerce site by modifying starter code. we have configure a working Express.js API to use Sequelize to interact with a MySQL database.
 
@@ -149,6 +152,7 @@ Your database should contain the following four models, including the requiremen
 ## Review
 
 * A walkthrough video demonstrating.
+* https://user-images.githubusercontent.com/74753345/119423223-a8164180-bcb7-11eb-89aa-ffff064f9f0f.mp4
 
 * The URL of the GitHub repository.
 https://github.com/ru14/Object-Relational-Mapping
